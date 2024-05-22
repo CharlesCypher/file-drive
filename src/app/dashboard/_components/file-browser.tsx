@@ -11,40 +11,21 @@ import { useState } from "react";
 import { DataTable } from "./file-table";
 import { columns } from "./columns";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Doc } from "../../../../convex/_generated/dataModel";
 import { Label } from "@/components/ui/label";
 
 function Placeholder() {
   return (
     <div className="flex flex-col gap-8 w-full items-center mt-24">
-      <Image
-        alt="an image of a picture and directory icon"
-        width="300"
-        height="300"
-        src="/empty.svg"
-      />
+      <Image alt="an image of a picture and directory icon" width="300" height="300" src="/empty.svg" />
       <div className="text-2xl">You have no files, upload one now</div>
       <UploadButton />
     </div>
   );
 }
 
-export function FileBrowser({
-  title,
-  favoritesOnly,
-  deletedOnly,
-}: {
-  title: string;
-  favoritesOnly?: boolean;
-  deletedOnly?: boolean;
-}) {
+export function FileBrowser({ title, favoritesOnly, deletedOnly }: { title: string; favoritesOnly?: boolean; deletedOnly?: boolean }) {
   const organization = useOrganization();
   const user = useUser();
   const [query, setQuery] = useState("");
@@ -55,10 +36,7 @@ export function FileBrowser({
     orgId = organization.organization?.id ?? user.user?.id;
   }
 
-  const favorites = useQuery(
-    api.files.getAllFavorites,
-    orgId ? { orgId } : "skip"
-  );
+  const favorites = useQuery(api.files.getAllFavorites, orgId ? { orgId } : "skip");
 
   const files = useQuery(
     api.files.getFiles,
@@ -77,9 +55,7 @@ export function FileBrowser({
   const modifiedFiles =
     files?.map((file) => ({
       ...file,
-      isFavorited: (favorites ?? []).some(
-        (favorite) => favorite.fileId === file._id
-      ),
+      isFavorited: (favorites ?? []).some((favorite) => favorite.fileId === file._id),
     })) ?? [];
 
   return (

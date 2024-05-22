@@ -1,12 +1,5 @@
 import { Button } from "@/components/ui/button";
-import {
-  OrganizationSwitcher,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-  useSession,
-} from "@clerk/nextjs";
+import { OrganizationSwitcher, SignInButton, SignedIn, SignedOut, UserButton, useSession } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -21,7 +14,7 @@ export function Header() {
 
         <SignedIn>
           <Button variant={"outline"}>
-            <Link href="/dashboard/files">Your Files</Link>
+            <Link href="/dashboard/files">My Files</Link>
           </Button>
         </SignedIn>
 

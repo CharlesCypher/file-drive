@@ -23,9 +23,7 @@ function UserCell({ userId }: { userId: Id<"users"> }) {
   );
 }
 
-export const columns: ColumnDef<
-  Doc<"files"> & { url: string; isFavorited: boolean }
->[] = [
+export const columns: ColumnDef<Doc<"files"> & { url: string | null; isFavorited: boolean }>[] = [
   {
     accessorKey: "name",
     header: "Name",
@@ -43,11 +41,7 @@ export const columns: ColumnDef<
   {
     header: "Uploaded On",
     cell: ({ row }) => {
-      return (
-        <div>
-          {formatRelative(new Date(row.original._creationTime), new Date())}
-        </div>
-      );
+      return <div>{formatRelative(new Date(row.original._creationTime), new Date())}</div>;
     },
   },
   {
@@ -55,10 +49,7 @@ export const columns: ColumnDef<
     cell: ({ row }) => {
       return (
         <div>
-          <FileCardActions
-            file={row.original}
-            isFavorited={row.original.isFavorited}
-          />
+          <FileCardActions file={row.original} isFavorited={row.original.isFavorited} />
         </div>
       );
     },
